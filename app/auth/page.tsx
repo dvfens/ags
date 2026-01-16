@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useUserStore } from '@/lib/store/user'
-import Header from '@/components/Header'
 
 export default function AuthPage() {
   const router = useRouter()
@@ -53,14 +52,11 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
+    <div className="min-h-screen bg-white">
       <div className="max-w-md mx-auto px-4 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-lg shadow-md p-8"
         >
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             {isLogin ? 'Welcome Back!' : 'Create Account'}
