@@ -24,7 +24,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   const cartItem = items.find((item) => item.id === product.id)
   const quantity = cartItem?.quantity || 0
 
-  const handleAdd = () => {
+  const handleAdd = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     addItem({
       id: product.id,
       name: product.name,
@@ -34,11 +36,15 @@ export default function ProductCard({ product }: ProductCardProps) {
     })
   }
 
-  const handleIncrement = () => {
+  const handleIncrement = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     updateQuantity(product.id, quantity + 1)
   }
 
-  const handleDecrement = () => {
+  const handleDecrement = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     updateQuantity(product.id, quantity - 1)
   }
 
@@ -108,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={handleAdd}
-              className="bg-gradient-to-r from-pink-500 to-rose-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium shadow-md"
+              className="bg-gradient-to-r from-pink-500 to-rose-600 text-white px-4 py-1.5 rounded-lg text-xs font-medium shadow-sm whitespace-nowrap"
             >
               Add
             </motion.button>
@@ -116,22 +122,22 @@ export default function ProductCard({ product }: ProductCardProps) {
             <motion.div
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
-              className="flex items-center gap-1 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-lg shadow-md"
+              className="flex items-center bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-lg shadow-sm overflow-hidden"
             >
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={handleDecrement}
-                className="px-2 py-1.5 text-sm"
+                className="w-5 h-6 flex items-center justify-center text-sm font-bold leading-none"
               >
                 −
               </motion.button>
-              <span className="text-xs min-w-[14px] text-center">{quantity}</span>
+              <span className="text-[11px] font-semibold px-0.5 min-w-[14px] text-center">{quantity}</span>
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={handleIncrement}
-                className="px-2 py-1.5 text-sm"
+                className="w-5 h-6 flex items-center justify-center text-sm font-bold leading-none"
               >
-                +
+                &#43;
               </motion.button>
             </motion.div>
           )}
