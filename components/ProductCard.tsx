@@ -49,10 +49,10 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link href={`/products/${product.id}`}>
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         whileTap={{ scale: 0.98 }}
-        className="bg-white rounded-xl overflow-hidden border border-gray-100 cursor-pointer"
+        className="bg-white rounded-xl overflow-hidden border border-neutral-100 cursor-pointer"
       >
       <div className="relative aspect-square w-full">
         <Image
@@ -63,40 +63,26 @@ export default function ProductCard({ product }: ProductCardProps) {
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
         />
         
-        {/* Veg/Non-veg badge */}
+        {/* Veg/Non-veg indicator */}
         <div className="absolute top-2 left-2">
-          <div
-            className={`w-5 h-5 border-2 ${
-              product.isVeg ? 'border-green-600' : 'border-red-600'
-            } flex items-center justify-center bg-white rounded`}
-          >
-            <div
-              className={`w-2.5 h-2.5 rounded-full ${
-                product.isVeg ? 'bg-green-600' : 'bg-red-600'
-              }`}
-            />
+          <div className={`w-4 h-4 border ${product.isVeg ? 'border-green-600' : 'border-red-500'} flex items-center justify-center bg-white rounded-sm`}>
+            <div className={`w-2 h-2 rounded-full ${product.isVeg ? 'bg-green-600' : 'bg-red-500'}`} />
           </div>
         </div>
 
         {/* Discount badge */}
         {product.discount && product.discount > 0 && (
-          <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-0.5 rounded text-xs font-bold">
+          <div className="absolute top-2 right-2 bg-gradient-to-r from-pink-500 to-rose-600 text-white px-1.5 py-0.5 rounded text-[10px] font-medium shadow-md">
             {product.discount}% OFF
           </div>
         )}
-
-        {/* Prep time */}
-        <div className="absolute bottom-2 left-2 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1">
-          <span>⏱️</span>
-          <span>{product.prepTime}m</span>
-        </div>
       </div>
 
       <div className="p-3">
-        <h3 className="font-semibold text-sm text-gray-900 mb-1 line-clamp-1">
+        <h3 className="font-medium text-sm text-neutral-900 mb-0.5 line-clamp-1">
           {product.name}
         </h3>
-        <p className="text-xs text-gray-500 mb-2 line-clamp-1">
+        <p className="text-xs text-neutral-400 mb-2 line-clamp-1">
           {product.description}
         </p>
 
@@ -104,15 +90,15 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="flex-1">
             {product.discount && product.discount > 0 ? (
               <div className="flex items-center gap-1">
-                <span className="text-base font-bold text-gray-900">
+                <span className="text-sm font-semibold text-neutral-900">
                   {formatPrice(discountedPrice)}
                 </span>
-                <span className="text-xs text-gray-400 line-through">
+                <span className="text-xs text-neutral-400 line-through">
                   {formatPrice(product.price)}
                 </span>
               </div>
             ) : (
-              <span className="text-base font-bold text-gray-900">
+              <span className="text-sm font-semibold text-neutral-900">
                 {formatPrice(product.price)}
               </span>
             )}
@@ -122,28 +108,28 @@ export default function ProductCard({ product }: ProductCardProps) {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={handleAdd}
-              className="bg-orange-500 text-white px-3 py-1.5 rounded-lg font-semibold text-xs shadow-sm active:shadow-none"
+              className="bg-gradient-to-r from-pink-500 to-rose-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium shadow-md"
             >
-              ADD
+              Add
             </motion.button>
           ) : (
             <motion.div
-              initial={{ scale: 0.8 }}
+              initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
-              className="flex items-center gap-2 bg-orange-500 text-white rounded-lg"
+              className="flex items-center gap-1 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-lg shadow-md"
             >
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={handleDecrement}
-                className="px-2 py-1 font-bold"
+                className="px-2 py-1.5 text-sm"
               >
                 −
               </motion.button>
-              <span className="font-semibold text-sm min-w-[16px] text-center">{quantity}</span>
+              <span className="text-xs min-w-[14px] text-center">{quantity}</span>
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={handleIncrement}
-                className="px-2 py-1 font-bold"
+                className="px-2 py-1.5 text-sm"
               >
                 +
               </motion.button>
