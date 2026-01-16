@@ -256,8 +256,8 @@ export default function CheckoutPage() {
               {addresses.length > 0 ? (
                 <div className="space-y-3">
                   {addresses.map((addr) => (
-                    <label key={addr.id} className="flex items-start space-x-3 p-3 border-2 rounded-lg cursor-pointer hover:border-orange-500 transition-colors"
-                      style={{ borderColor: selectedAddressId === addr.id ? '#fc8019' : '#e5e7eb' }}>
+                    <label key={addr.id} className="flex items-start space-x-3 p-3 border-2 rounded-lg cursor-pointer hover:border-pink-500 transition-colors"
+                      style={{ borderColor: selectedAddressId === addr.id ? '#ec4899' : '#e5e7eb' }}>
                       <input
                         type="radio"
                         name="address"
@@ -273,7 +273,7 @@ export default function CheckoutPage() {
                   ))}
                   <button
                     onClick={() => setShowAddressForm(true)}
-                    className="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-orange-500 hover:text-orange-500 transition-colors"
+                    className="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-pink-500 hover:text-pink-600 transition-colors"
                   >
                     + Add New Address
                   </button>
@@ -283,7 +283,7 @@ export default function CheckoutPage() {
                   <p className="text-gray-600 mb-4">No delivery address added</p>
                   <button
                     onClick={() => setShowAddressForm(true)}
-                    className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600"
+                    className="bg-gradient-to-r from-pink-500 to-rose-600 text-white px-6 py-2 rounded-lg shadow-md hover:from-pink-600 hover:to-rose-700"
                   >
                     Add Delivery Address
                   </button>
@@ -292,7 +292,7 @@ export default function CheckoutPage() {
 
               {/* Add Address Form */}
               {showAddressForm && (
-                <div className="mt-4 p-4 border-2 border-orange-200 rounded-lg bg-orange-50">
+                <div className="mt-4 p-4 border-2 border-pink-200 rounded-lg bg-pink-50">
                   <h3 className="font-semibold mb-3">New Address</h3>
                   <div className="space-y-3">
                     <select
@@ -353,7 +353,7 @@ export default function CheckoutPage() {
                     <div className="flex gap-2">
                       <button
                         onClick={handleCreateAddress}
-                        className="flex-1 bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600"
+                        className="flex-1 bg-gradient-to-r from-pink-500 to-rose-600 text-white py-2 rounded-lg shadow-md hover:from-pink-600 hover:to-rose-700"
                       >
                         Save Address
                       </button>
@@ -383,7 +383,7 @@ export default function CheckoutPage() {
                     type="checkbox"
                     checked={giftOptions.isGift}
                     onChange={(e) => setGiftOptions({ ...giftOptions, isGift: e.target.checked })}
-                    className="w-5 h-5 text-primary rounded"
+                    className="w-5 h-5 text-pink-500 rounded"
                   />
                   <span className="text-sm font-semibold text-gray-700">Yes, this is a gift</span>
                 </label>
@@ -437,7 +437,7 @@ export default function CheckoutPage() {
                     </select>
                     <a
                       href="/recipients"
-                      className="text-primary text-xs font-semibold mt-2 hover:underline inline-block"
+                      className="text-pink-600 text-xs font-semibold mt-2 hover:underline inline-block"
                     >
                       + Manage recipients
                     </a>
@@ -463,7 +463,7 @@ export default function CheckoutPage() {
                             <span className="text-3xl block mb-2">{wrap.image}</span>
                             <p className="font-semibold text-gray-900 text-sm">{wrap.name}</p>
                             <p className="text-xs text-gray-600 mb-1">{wrap.type}</p>
-                            <p className="text-primary font-bold">+{formatPrice(wrap.price)}</p>
+                            <p className="text-pink-600 font-bold">+{formatPrice(wrap.price)}</p>
                           </div>
                         </button>
                       ))}
@@ -479,7 +479,7 @@ export default function CheckoutPage() {
                       value={giftOptions.greetingMessage || ''}
                       onChange={(e) => setGiftOptions({ ...giftOptions, greetingMessage: e.target.value })}
                       placeholder="Add a personal message on the card..."
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                       rows={3}
                       maxLength={200}
                     />
@@ -497,7 +497,7 @@ export default function CheckoutPage() {
                         value={giftOptions.senderName || user?.name || ''}
                         onChange={(e) => setGiftOptions({ ...giftOptions, senderName: e.target.value })}
                         placeholder="Your name"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900 text-sm"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900 text-sm"
                       />
                     </div>
                     <label className="flex items-center space-x-2 cursor-pointer">
@@ -505,7 +505,7 @@ export default function CheckoutPage() {
                         type="checkbox"
                         checked={giftOptions.showSenderName}
                         onChange={(e) => setGiftOptions({ ...giftOptions, showSenderName: e.target.checked })}
-                        className="w-4 h-4 text-primary rounded"
+                        className="w-4 h-4 text-pink-500 rounded"
                       />
                       <span className="text-sm text-gray-700">Show my name on the card</span>
                     </label>
@@ -612,7 +612,7 @@ export default function CheckoutPage() {
                 whileTap={{ scale: 0.98 }}
                 onClick={handlePlaceOrder}
                 disabled={isLoading || (giftOptions.isGift && !giftOptions.recipientId)}
-                className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary-dark smooth-transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-pink-500 to-rose-600 text-white py-3 rounded-lg font-semibold shadow-md smooth-transition disabled:opacity-50 disabled:cursor-not-allowed hover:from-pink-600 hover:to-rose-700"
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center space-x-2">

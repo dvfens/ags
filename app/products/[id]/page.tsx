@@ -132,7 +132,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
                     className={`relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 ${
-                      selectedImage === idx ? 'border-orange-500' : 'border-gray-200'
+                      selectedImage === idx ? 'border-pink-500' : 'border-gray-200'
                     }`}
                   >
                     <Image src={img} alt={`View ${idx + 1}`} fill className="object-cover" />
@@ -156,7 +156,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
             <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
 
             <div className="flex items-baseline gap-3 mb-4">
-              <span className="text-3xl font-bold text-orange-600">₹{finalPrice.toFixed(2)}</span>
+              <span className="text-3xl font-bold text-pink-600">₹{finalPrice.toFixed(2)}</span>
               {product.discount > 0 && (
                 <span className="text-xl text-gray-400 line-through">₹{product.price.toFixed(2)}</span>
               )}
@@ -165,7 +165,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
             <p className="text-gray-600 mb-6">{product.description}</p>
 
             <div className="flex items-center gap-2 mb-6">
-              <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
               </svg>
               <span className="text-sm text-gray-600">Prep time: {product.prepTime} mins</span>
@@ -211,7 +211,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               whileTap={{ scale: 0.98 }}
               onClick={handleAddToCart}
               disabled={!product.isAvailable}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-xl disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-semibold py-4 rounded-xl disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors shadow-lg"
             >
               {product.isAvailable ? 'Add to Cart' : 'Currently Unavailable'}
             </motion.button>

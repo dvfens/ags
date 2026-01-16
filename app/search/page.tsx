@@ -59,7 +59,7 @@ export default function SearchPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search gifts, flowers, cakes..."
-              className="w-full pl-12 pr-12 py-3 bg-gray-50 border-0 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all text-gray-900"
+              className="w-full pl-12 pr-12 py-3 bg-gray-50 border-0 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:bg-white transition-all text-gray-900"
               autoFocus
             />
             {searchQuery && (

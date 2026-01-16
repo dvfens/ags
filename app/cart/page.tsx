@@ -53,7 +53,7 @@ export default function CartPage() {
         <Header />
         <div className="max-w-7xl mx-auto px-4 py-20">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto" />
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-pink-500 border-t-transparent mx-auto" />
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@ export default function CartPage() {
             <Link href="/">
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-orange-500 to-pink-500 text-white px-8 py-3 rounded-full font-semibold"
+                className="bg-gradient-to-r from-pink-500 to-rose-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg"
               >
                 Browse Gifts
               </motion.button>
@@ -120,7 +120,7 @@ export default function CartPage() {
                   <div className="flex items-start justify-between">
                     <div>
                       <h3 className="font-semibold text-lg text-gray-900">{item.name}</h3>
-                      <p className="text-primary font-bold">{formatPrice(item.price)}</p>
+                      <p className="text-pink-600 font-bold">{formatPrice(item.price)}</p>
                     </div>
                     <button
                       onClick={() => removeItem(item.id)}
@@ -146,7 +146,7 @@ export default function CartPage() {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="bg-primary text-white w-8 h-8 rounded-lg font-bold hover:bg-primary-dark smooth-transition"
+                      className="bg-gradient-to-r from-pink-500 to-rose-600 text-white w-8 h-8 rounded-lg font-bold shadow-md smooth-transition"
                     >
                       +
                     </motion.button>
@@ -218,7 +218,7 @@ export default function CartPage() {
                     type="checkbox"
                     checked={giftOptions.isGift}
                     onChange={(e) => setGiftOptions({ ...giftOptions, isGift: e.target.checked, giftWrapId: e.target.checked ? giftOptions.giftWrapId : undefined })}
-                    className="w-6 h-6 text-primary rounded focus:ring-2 focus:ring-primary"
+                    className="w-6 h-6 text-pink-500 rounded focus:ring-2 focus:ring-pink-500"
                   />
                 </label>
                 {giftOptions.isGift && (
@@ -236,7 +236,7 @@ export default function CartPage() {
                             key={wrap.id}
                             className={`flex-shrink-0 w-28 p-3 rounded-lg border-2 cursor-pointer transition-all text-center ${
                               giftOptions.giftWrapId === wrap.id
-                                ? 'border-primary bg-primary/10 shadow-md'
+                                ? 'border-pink-500 bg-pink-50 shadow-md'
                                 : 'border-gray-200 hover:border-pink-300'
                             }`}
                           >
@@ -249,7 +249,7 @@ export default function CartPage() {
                             />
                             <span className="text-3xl block mb-1">{wrap.image}</span>
                             <p className="text-xs font-semibold text-gray-900 truncate">{wrap.name}</p>
-                            <p className="text-primary font-bold text-sm mt-1">+₹{wrap.price}</p>
+                            <p className="text-pink-600 font-bold text-sm mt-1">+₹{wrap.price}</p>
                           </label>
                         ))
                       ) : (
@@ -270,7 +270,7 @@ export default function CartPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => router.push('/checkout')}
-                className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary-dark smooth-transition mb-3"
+                className="w-full bg-gradient-to-r from-pink-500 to-rose-600 text-white py-3 rounded-lg font-semibold shadow-md smooth-transition mb-3"
               >
                 Proceed to Checkout
               </motion.button>
