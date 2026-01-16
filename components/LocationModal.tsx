@@ -149,105 +149,103 @@ export default function LocationModal({ isOpen, onClose }: LocationModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-50 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60 z-[60] backdrop-blur-sm"
           />
 
-          {/* Modal */}
+          {/* Bottom Sheet Modal - Mobile App Style */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", duration: 0.3 }}
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
             onClick={(e) => e.stopPropagation()}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+            className="fixed bottom-0 left-0 right-0 z-[60] lg:relative lg:inset-0 lg:flex lg:items-center lg:justify-center lg:p-4"
           >
-            <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto pointer-events-auto">
-              <div className="p-6">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center space-x-2">
-                    {step === 'form' && (
-                      <button
-                        onClick={handleBackToMap}
-                        className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-                      >
-                        <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                      </button>
-                    )}
-                    <h2 className="text-2xl font-bold text-gray-900">
-                      {step === 'select' ? 'Select Location on Map' : 'Enter Address Details'}
-                    </h2>
-                  </div>
-                  <button
-                    onClick={onClose}
-                    className="text-gray-400 hover:text-gray-600 transition-colors"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
+            <div className="bg-white rounded-t-3xl lg:rounded-2xl shadow-xl w-full max-h-[92vh] overflow-hidden flex flex-col lg:max-w-2xl mb-16 lg:mb-0">
+              {/* Drag Handle - Mobile Only */}
+              <div className="lg:hidden flex justify-center pt-3 pb-1">
+                <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
+              </div>
+
+              {/* Header */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+                <div className="flex items-center gap-3">
+                  {step === 'form' && (
+                    <button
+                      onClick={handleBackToMap}
+                      className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                    >
+                      <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                  )}
+                  <h2 className="text-lg font-bold text-gray-900">
+                    {step === 'select' ? 'Choose Location' : 'Complete Address'}
+                  </h2>
                 </div>
+                <button
+                  onClick={onClose}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
 
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm"
-                  >
-                    {error}
-                  </motion.div>
-                )}
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-red-50 text-red-600 p-3 mx-5 mt-4 rounded-xl text-sm flex items-start gap-2"
+                >
+                  <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                  <span>{error}</span>
+                </motion.div>
+              )}
 
-                {step === 'select' ? (
-                  <div>
-                    <div className="mb-4">
-                      <p className="text-sm text-gray-600 mb-2">
-                        📍 Click or drag the marker on the map to select your exact location
-                      </p>
-                      {selectedAddress && (
-                        <div className="bg-gray-50 p-3 rounded-lg">
-                          <p className="text-sm font-semibold text-gray-700 mb-1">Selected Address:</p>
-                          <p className="text-sm text-gray-600">{selectedAddress}</p>
-                        </div>
-                      )}
-                    </div>
+              {/* Scrollable Content */}
+              <div className="flex-1 overflow-y-auto px-5 py-4">{step === 'select' ? (
+                  <div className="space-y-4">
+                    {selectedAddress && (
+                      <motion.div 
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-white border border-gray-200 rounded-xl p-3"
+                      >
+                        <p className="text-xs text-gray-500 mb-1 uppercase tracking-wide font-medium">Selected Location</p>
+                        <p className="text-sm text-gray-900 leading-relaxed">{selectedAddress}</p>
+                      </motion.div>
+                    )}
                     
-                    <div className="h-[400px] rounded-lg overflow-hidden border-2 border-gray-200 mb-4">
+                    <div className="h-[280px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
                       <MapPicker 
                         onLocationSelect={handleLocationSelect}
                         initialLat={deliveryAddress?.latitude || 28.6139}
                         initialLng={deliveryAddress?.longitude || 77.2090}
                       />
                     </div>
-
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={handleProceedToForm}
-                      disabled={!coords}
-                      className="w-full bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      Confirm & Continue
-                    </motion.button>
                   </div>
+
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Address Type */}
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label className="block text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wider">
                         Save As
                       </label>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="flex gap-2">
                         {['Home', 'Work', 'Other'].map((type) => (
                           <button
                             key={type}
                             type="button"
                             onClick={() => setFormData({ ...formData, label: type })}
-                            className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
+                            className={`flex-1 px-4 py-3 rounded-xl font-semibold text-sm transition-all ${
                               formData.label === type
-                                ? 'bg-primary text-white'
+                                ? 'bg-pink-500 text-white shadow-sm'
                                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                             }`}
                           >
@@ -259,43 +257,43 @@ export default function LocationModal({ isOpen, onClose }: LocationModalProps) {
 
                     {/* Street Address */}
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        House/Flat/Block No. *
+                      <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
+                        House/Flat/Block No. <span className="text-pink-500">*</span>
                       </label>
                       <input
                         type="text"
                         required
                         value={formData.street}
                         onChange={(e) => setFormData({ ...formData, street: e.target.value })}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
-                        placeholder="Enter your house/flat number"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900 transition-all"
+                        placeholder="e.g. A-101"
                       />
                     </div>
 
                     {/* Apartment/Building */}
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
                         Apartment/Road/Area
                       </label>
                       <input
                         type="text"
                         value={formData.apartment}
                         onChange={(e) => setFormData({ ...formData, apartment: e.target.value })}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
-                        placeholder="Apartment name or area"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900 transition-all"
+                        placeholder="Building or area name"
                       />
                     </div>
 
                     {/* Landmark */}
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
                         Landmark
                       </label>
                       <input
                         type="text"
                         value={formData.landmark}
                         onChange={(e) => setFormData({ ...formData, landmark: e.target.value })}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900 transition-all"
                         placeholder="Nearby landmark"
                       />
                     </div>
@@ -303,65 +301,78 @@ export default function LocationModal({ isOpen, onClose }: LocationModalProps) {
                     {/* City, State, Pincode */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
-                          City *
+                        <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
+                          City <span className="text-pink-500">*</span>
                         </label>
                         <input
                           type="text"
                           required
                           value={formData.city}
                           onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
+                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900 transition-all"
                           placeholder="City"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
-                          Pincode *
+                        <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
+                          Pincode <span className="text-pink-500">*</span>
                         </label>
                         <input
                           type="text"
                           required
                           value={formData.pincode}
                           onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
-                          placeholder="Pincode"
+                          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900 transition-all"
+                          placeholder="000000"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        State *
+                      <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
+                        State <span className="text-pink-500">*</span>
                       </label>
                       <input
                         type="text"
                         required
                         value={formData.state}
                         onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900 transition-all"
                         placeholder="State"
                       />
                     </div>
-
-                    {/* Submit Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isLoading ? (
-                        <div className="flex items-center justify-center space-x-2">
-                          <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
-                          <span>Saving...</span>
-                        </div>
-                      ) : (
-                        'Save & Continue'
-                      )}
-                    </motion.button>
                   </form>
+                )}
+              </div>
+
+              {/* Fixed Bottom Button */}
+              <div className="px-5 py-4 border-t border-gray-100 bg-white">
+                {step === 'select' ? (
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleProceedToForm}
+                    disabled={!coords}
+                    className="w-full bg-pink-500 text-white px-6 py-4 rounded-xl font-bold hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-pink-200"
+                  >
+                    Confirm & Continue
+                  </motion.button>
+                ) : (
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    onClick={handleSubmit}
+                    disabled={isLoading}
+                    className="w-full bg-pink-500 text-white px-6 py-4 rounded-xl font-bold hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-pink-200"
+                  >
+                    {isLoading ? (
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
+                        <span>Saving...</span>
+                      </div>
+                    ) : (
+                      'Save Address'
+                    )}
+                  </motion.button>
                 )}
               </div>
             </div>
