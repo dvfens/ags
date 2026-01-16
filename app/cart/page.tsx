@@ -93,21 +93,21 @@ export default function CartPage() {
     <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0">
       <Header />
       
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Cart ({totalItems})</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-4 py-3">
+        <h1 className="text-lg sm:text-2xl font-bold text-gray-900 mb-3">Your Cart ({totalItems})</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
           {/* Cart Items */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-3">
             {items.map((item, index) => (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-md p-4 flex items-center space-x-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                className="bg-white rounded-xl border border-gray-200 p-3 flex items-start space-x-3"
               >
-                <div className="relative h-24 w-24 flex-shrink-0 rounded-lg overflow-hidden">
+                <div className="relative h-20 w-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-50">
                   <Image
                     src={item.image}
                     alt={item.name}
@@ -116,47 +116,44 @@ export default function CartPage() {
                   />
                 </div>
 
-                <div className="flex-1">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h3 className="font-semibold text-lg text-gray-900">{item.name}</h3>
-                      <p className="text-pink-600 font-bold">{formatPrice(item.price)}</p>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between mb-1">
+                    <div className="flex-1 min-w-0 pr-2">
+                      <h3 className="font-semibold text-sm text-gray-900 truncate">{item.name}</h3>
+                      <p className="text-pink-600 font-bold text-sm">{formatPrice(item.price)}</p>
                     </div>
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-red-500 hover:text-red-700 p-1"
+                      className="text-gray-400 hover:text-red-500 p-1 -mr-1"
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
                   </div>
 
-                  <div className="mt-2 flex items-center space-x-2">
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="bg-gray-200 text-gray-900 w-8 h-8 rounded-lg font-bold hover:bg-gray-300 smooth-transition"
-                    >
-                      −
-                    </motion.button>
-                    <span className="font-semibold px-4">{item.quantity}</span>
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="bg-gradient-to-r from-pink-500 to-rose-600 text-white w-8 h-8 rounded-lg font-bold shadow-md smooth-transition"
-                    >
-                      +
-                    </motion.button>
+                  <div className="flex items-center justify-between mt-2">
+                    <div className="flex items-center space-x-2 bg-gray-50 rounded-lg p-1">
+                      <motion.button
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        className="bg-white text-gray-700 w-7 h-7 rounded-md font-bold shadow-sm border border-gray-200 hover:bg-gray-50"
+                      >
+                        −
+                      </motion.button>
+                      <span className="font-semibold text-sm px-3 min-w-[2rem] text-center">{item.quantity}</span>
+                      <motion.button
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="bg-pink-500 text-white w-7 h-7 rounded-md font-bold shadow-sm hover:bg-pink-600"
+                      >
+                        +
+                      </motion.button>
+                    </div>
+                    <p className="text-base font-bold text-gray-900">
+                      {formatPrice(item.price * item.quantity)}
+                    </p>
                   </div>
-                </div>
-
-                <div className="text-right">
-                  <p className="text-lg font-bold text-gray-900">
-                    {formatPrice(item.price * item.quantity)}
-                  </p>
                 </div>
               </motion.div>
             ))}
@@ -165,79 +162,80 @@ export default function CartPage() {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-lg shadow-md p-6 sticky top-24"
+              className="bg-white rounded-xl border border-gray-200 p-4 sticky top-20"
             >
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Order Summary</h2>
+              <h2 className="text-base font-bold text-gray-900 mb-3">Summary</h2>
 
-              <div className="space-y-3 mb-4">
-                <div className="flex justify-between text-gray-600">
+              <div className="space-y-2 mb-3">
+                <div className="flex justify-between text-sm text-gray-600">
                   <span>Subtotal</span>
-                  <span>{formatPrice(subtotal)}</span>
+                  <span className="font-medium text-gray-900">{formatPrice(subtotal)}</span>
                 </div>
                 {giftWrapPrice > 0 && (
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-sm text-gray-600">
                     <span>🎁 {selectedWrap?.name}</span>
-                    <span>+{formatPrice(giftWrapPrice)}</span>
+                    <span className="font-medium text-gray-900">+{formatPrice(giftWrapPrice)}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-gray-600">
-                  <span>Delivery Fee</span>
-                  <span className={deliveryFee === 0 ? 'text-green-600 font-semibold' : ''}>
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>Delivery</span>
+                  <span className={deliveryFee === 0 ? 'text-green-600 font-semibold' : 'font-medium text-gray-900'}>
                     {deliveryFee === 0 ? 'FREE' : formatPrice(deliveryFee)}
                   </span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-sm text-gray-600">
                   <span>Tax (5%)</span>
-                  <span>{formatPrice(tax)}</span>
+                  <span className="font-medium text-gray-900">{formatPrice(tax)}</span>
                 </div>
-                <div className="border-t pt-3 flex justify-between text-xl font-bold text-gray-900">
+                <div className="border-t pt-2 flex justify-between text-base font-bold text-gray-900">
                   <span>Total</span>
-                  <span>{formatPrice(total)}</span>
+                  <span className="text-pink-600">{formatPrice(total)}</span>
                 </div>
               </div>
 
               {subtotal < 199 && (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4 text-sm text-yellow-800">
-                  Add {formatPrice(199 - subtotal)} more to get free delivery!
+                <div className="bg-pink-50 border border-pink-200 rounded-lg p-2.5 mb-3 text-xs text-pink-800 flex items-center space-x-2">
+                  <span>🎉</span>
+                  <span>Add {formatPrice(199 - subtotal)} more for free delivery!</span>
                 </div>
               )}
 
               {/* Gift Option Toggle */}
-              <div className="bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-200 rounded-lg p-4 mb-4">
+              <div className="bg-pink-50 border border-pink-200 rounded-lg p-3 mb-3">
                 <label className="flex items-center justify-between cursor-pointer">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-2xl">🎁</span>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xl">🎁</span>
                     <div>
-                      <p className="font-semibold text-gray-900">Send as Gift</p>
-                      <p className="text-xs text-gray-600">Add gift wrapping</p>
+                      <p className="font-semibold text-sm text-gray-900">Send as Gift</p>
+                      <p className="text-xs text-gray-500">Add wrapping & card</p>
                     </div>
                   </div>
                   <input
                     type="checkbox"
                     checked={giftOptions.isGift}
                     onChange={(e) => setGiftOptions({ ...giftOptions, isGift: e.target.checked, giftWrapId: e.target.checked ? giftOptions.giftWrapId : undefined })}
-                    className="w-6 h-6 text-pink-500 rounded focus:ring-2 focus:ring-pink-500"
+                    className="w-5 h-5 text-pink-500 rounded focus:ring-2 focus:ring-pink-500"
                   />
                 </label>
                 {giftOptions.isGift && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
-                    className="mt-3 pt-3 border-t border-pink-200 space-y-3"
+                    className="mt-2 pt-2 border-t border-pink-200 space-y-2"
                   >
-                    <p className="text-sm font-semibold text-gray-900">Choose Gift Wrap:</p>
+                    <p className="text-xs font-semibold text-gray-700">Choose Wrap:</p>
                     {/* Horizontal scrollable gift wraps */}
-                    <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
+                    <div className="flex gap-2 overflow-x-auto pb-1 -mx-3 px-3 scrollbar-hide">
                       {Array.isArray(giftWraps) && giftWraps.length > 0 ? (
                         giftWraps.map((wrap) => (
                           <label
                             key={wrap.id}
-                            className={`flex-shrink-0 w-28 p-3 rounded-lg border-2 cursor-pointer transition-all text-center ${
+                            className={`flex-shrink-0 w-20 p-2 rounded-lg border cursor-pointer transition-all text-center ${
                               giftOptions.giftWrapId === wrap.id
-                                ? 'border-pink-500 bg-pink-50 shadow-md'
-                                : 'border-gray-200 hover:border-pink-300'
+                                ? 'border-pink-500 bg-white shadow-sm'
+                                : 'border-gray-200 bg-white hover:border-pink-300'
                             }`}
                           >
                             <input
@@ -247,37 +245,30 @@ export default function CartPage() {
                               onChange={() => setGiftOptions({ ...giftOptions, giftWrapId: wrap.id })}
                               className="sr-only"
                             />
-                            <span className="text-3xl block mb-1">{wrap.image}</span>
-                            <p className="text-xs font-semibold text-gray-900 truncate">{wrap.name}</p>
-                            <p className="text-pink-600 font-bold text-sm mt-1">+₹{wrap.price}</p>
+                            <span className="text-2xl block mb-0.5">{wrap.image}</span>
+                            <p className="text-[10px] font-medium text-gray-900 truncate">{wrap.name}</p>
+                            <p className="text-pink-600 font-bold text-xs">+₹{wrap.price}</p>
                           </label>
                         ))
                       ) : (
-                        <p className="text-sm text-gray-500">Loading...</p>
+                        <p className="text-xs text-gray-500">Loading...</p>
                       )}
                     </div>
-                    <p className="text-xs text-gray-600 flex items-center space-x-1">
-                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                      </svg>
-                      <span>Personalize with message & recipient in checkout</span>
-                    </p>
                   </motion.div>
                 )}
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => router.push('/checkout')}
-                className="w-full bg-gradient-to-r from-pink-500 to-rose-600 text-white py-3 rounded-lg font-semibold shadow-md smooth-transition mb-3"
+                className="w-full bg-pink-500 text-white py-3 rounded-lg font-semibold shadow-sm hover:bg-pink-600 transition-colors mb-2"
               >
-                Proceed to Checkout
+                Checkout • {formatPrice(total)}
               </motion.button>
 
               <button
                 onClick={() => router.push('/')}
-                className="w-full bg-gray-200 text-gray-900 py-3 rounded-lg font-semibold hover:bg-gray-300 smooth-transition"
+                className="w-full text-pink-600 py-2.5 rounded-lg font-medium text-sm hover:bg-pink-50 transition-colors"
               >
                 Continue Shopping
               </button>
