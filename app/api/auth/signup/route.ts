@@ -30,13 +30,16 @@ export async function POST(request: NextRequest) {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10)
 
+    // Generate a unique phone placeholder if not provided
+    const userPhone = phone || `temp_${Date.now()}_${Math.random().toString(36).substring(7)}`
+
     // Create user
     const user = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
         name: name || email.split('@')[0],
-        phone: phone || '',
+        phone: userPhone,
       },
       select: {
         id: true,
